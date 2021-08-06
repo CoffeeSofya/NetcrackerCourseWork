@@ -1,0 +1,50 @@
+
+<div class="wrapper">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="card-content">
+      <div class="header">
+      <span>Регистрация /</span>
+      <span><a [routerLink]="['/login']"> Вход в систему</a></span>
+      </div>
+      <div class="card-item">
+        <label for="email"></label>
+        <input id="email"
+               type="email"
+               formControlName="email"
+               placeholder="Email"
+               [ngClass]="{'invalid': form.get('email')?.invalid && form.get('email')?.touched}"
+               [ngClass]="{'valid': form.get('email')?.valid && form.get('email')?.touched}"
+        >
+        <!--             [ngClass]="{'invalid': form.get('email')?.invalid && form.get('email')?.touched}"-->
+
+        <span class="error-red" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+        <span *ngIf="form.get('email')?.errors?.required">Поле Email должно быть заполнено</span>
+        <span *ngIf="form.get('email')?.errors?.email">Введите корректный email</span>
+      </span>
+      </div>
+
+      <div class="card-item">
+        <label for="password"></label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="Password"
+          [ngClass]="{'invalid': form.get('password')?.invalid && form.get('password')?.touched}"
+          [ngClass]="{'valid': form.get('password')?.valid && form.get('password')?.touched}"
+        >
+
+        <span class="error-red" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+        <span *ngIf="form.get('password')?.errors?.required">Поле не может быть пустым</span>
+        <span *ngIf="form.get('password')?.errors?.minlength">
+          Пароль должен быть быть более {{form.get('password')?.errors?.minlength.requiredLength}} символов
+        </span>
+      </span>
+      </div>
+
+      <div class="card-action">
+        <button type="submit" [disabled]="form.invalid || form.disabled">Создать</button>
+      </div>
+    </div>
+  </form>
+</div>
